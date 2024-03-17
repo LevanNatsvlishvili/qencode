@@ -33,7 +33,6 @@ const refreshAccessToken = async () => {
 // Request interceptor to attach the access token to every request
 axiosRemote.interceptors.request.use((config) => {
   const accessToken = getAccessToken();
-  console.log('accessToken', accessToken);
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -44,16 +43,18 @@ axiosRemote.interceptors.request.use((config) => {
 axiosRemote.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log('error');
+    console.log('error', error.response.status);
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         const newAccessToken = await refreshAccessToken();
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        console.log(originalRequest.headers.Authorization);
         return axiosRemote(originalRequest);
       } catch (refreshError) {
         // Handle refresh token failure (e.g., redirect to login)
+        console.log(refreshError);
         return Promise.reject(refreshError);
       }
     }

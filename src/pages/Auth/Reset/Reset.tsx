@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Logo } from '@/assets/icons/Logo';
 import classes from './Reset.module.css';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { validatePassword, validatePasswordMatch } from '@/utils/form-validation';
 import { ResetCredentials } from '@/types/User';
+import { useLocation } from 'react-router-dom';
+
+function useQuery() {
+  const { search } = useLocation();
+
+  return useMemo(() => new URLSearchParams(search), [search]);
+}
 
 function Reset() {
+  const query = useQuery();
+  const token = query.get('token');
+  const secret = query.get('secret');
   const [credentials, setCredentials] = useState<ResetCredentials>({
     password: '',
     password_confirm: '',
-    token: '',
-    secret: '',
+    token: token || '',
+    secret: secret || '',
   });
 
   const handleLogin = () => {

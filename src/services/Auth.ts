@@ -34,7 +34,7 @@ export const forgotPassword = async (form: ForgotCredentials) => {
 
 export const accessToken = async (accessToken: string) => {
   try {
-    const response = await axios.post(accessTokenUrl, { access_id: accessToken });
+    const response = await axiosRemote.post(accessTokenUrl, { access_id: `Bearer ${accessToken}` });
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError) {

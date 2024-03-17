@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { paths } from '@/routing/Paths';
 import { getAccessToken } from '@/utils/authTokens';
-// import parseJWT from '@/utils/parseJWT';
+import parseJWT from '@/utils/parseJWT';
 import useAuthActions from '@/utils/hooks/useAuthActions';
-// import { accessToken } from '@/services/Auth';
+import { accessToken } from '@/services/Auth';
 
-// const handleCheckAccessToken = async (token) => {
-//   const isTokenExpired = await accessToken(token);
-//   console.log(isTokenExpired);
-//   // return isTokenExpired;
-// };
+const handleCheckAccessToken = async (token: string) => {
+  const isTokenExpired = await accessToken(token);
+  console.log(isTokenExpired);
+  // return isTokenExpired;
+};
 
 function AuthGuard() {
   const { user, setUser } = useAuth();
@@ -27,9 +27,9 @@ function AuthGuard() {
       return;
     }
 
-    // const decodedToken = parseJWT(token);
-    // const isTokenExpired = handleCheckAccessToken(token);
-    // console.log(isTokenExpired);
+    const decodedToken = parseJWT(token);
+    const isTokenExpired = handleCheckAccessToken(token);
+    console.log(isTokenExpired);
 
     // if (isTokenExpired) {
     //   // handleLogout();
