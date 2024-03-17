@@ -64,7 +64,7 @@ function Login() {
         </div>
 
         <div className={classes.divider} />
-        <form className={classes.fieldWrapper}>
+        <form onSubmit={handleLogin} className={classes.fieldWrapper}>
           <Input placeholder="Work Email" value={credentials.email} type="email" name="email" onChange={handleChange} />
           {showPassword && (
             <div className={classes.passwordWrapper}>
