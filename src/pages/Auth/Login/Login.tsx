@@ -53,7 +53,7 @@ function Login() {
 
   return (
     <div className={classes.wrapper}>
-      <form onSubmit={handleLogin} className={classes.form}>
+      <div className={classes.form}>
         <img src={Logo} alt="Logo" />
 
         <h1>Log in to your account</h1>
@@ -64,8 +64,7 @@ function Login() {
         </div>
 
         <div className={classes.divider} />
-
-        <div className={classes.fieldWrapper}>
+        <form className={classes.fieldWrapper}>
           <Input placeholder="Work Email" value={credentials.email} type="email" name="email" onChange={handleChange} />
           {showPassword && (
             <div className={classes.passwordWrapper}>
@@ -85,11 +84,11 @@ function Login() {
           <div className={classes.buttonWrapper}>
             <Button text="Log in to Qencode" color="blue" />
           </div>
-        </div>
+        </form>
         <p className={classes.signup}>
           Is your company new to Qencode? <span>Sign up</span>
         </p>
-      </form>
+      </div>
     </div>
   );
 }
